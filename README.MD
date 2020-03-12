@@ -1,4 +1,4 @@
-#AssertJ Migrater
+# AssertJ Migrater
 
 This is an simple script which will change JUnits assertEqual, assertNull, assertTrue, assertFalse, assertNotNull
 to assertThat assertions from AssertJ.

@@ -19,15 +19,13 @@ file_dir = file_path.rsplit("/", 1)[0]
 print(file_dir, file_name, file_path)
 os.system("cd {}".format(file_dir))
 for line in fileinput.input(file_name, inplace=True):
-    next_line = False
     start_line = line
     if not line.endswith(";"):
-        try:
+        if len(line.split(";")) > 1:
             line = line.split(";")[0] + ";"
-        except:
+        else:
             sys.stdout.write(line)
             continue
-        next_line = True
     if "assertEquals" in line and line.endswith(";"):
         parameters = substring_maker(line, "assertEquals(", ");")
         actual = parameters.split(",")[1]
