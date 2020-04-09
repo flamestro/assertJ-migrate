@@ -1,9 +1,9 @@
 # AssertJ Migrater
 
-This is an simple script which will change JUnits assertEqual, assertNull, assertTrue, assertFalse, assertNotNull
+This is a simple script which will change JUnits assertEqual, assertNull, assertTrue, assertFalse, assertNotNull
 to assertThat assertions from AssertJ.
 
-Lets say you have an file under /home/DeveloperX/dev/projectX/test.java
+Lets say you have a file under /home/DeveloperX/dev/projectX/test.java
 
 After you start the script you will be asked to enter an absolute path to your testfile like the one above.
 
