@@ -9,8 +9,19 @@ import os
 import sys
 
 
-def substring_maker(inputstring, start, end, index=0):
-    return (inputstring.split(start))[-1].split(end)[index]
+def substring_maker(input_string, start, end, index=0):
+    return (input_string.split(start))[-1].split(end)[index]
+
+
+def count_indentation(input_string):
+    count = 0
+    reached_char = False
+    for x in input_string:
+        if x == " " and not reached_char:
+            count += 1
+        else:
+            reached_char = True
+    return count
 
 
 file_path = input("Please enter the absolute path to the file you want to migrate :")
@@ -37,31 +48,31 @@ for line in fileinput.input(file_name, inplace=True):
         expected = parameters.split(",")[0]
         if actual.startswith(" "):
             actual = actual[1:]
-        new_line = "assertThat({}).isEqualTo({});\n".format(actual, expected)
+        new_line = " " * count_indentation(line) + "assertThat({}).isEqualTo({});\n".format(actual, expected)
     elif "assertTrue" in line and line.endswith(";") and ".assertTrue" not in line:
         parameter = substring_maker(line, "assertTrue(", ");")
         actual = parameter
         if actual.startswith(" "):
             actual = actual[1:]
-        new_line = "assertThat({}).isTrue();\n".format(actual)
+        new_line = " " * count_indentation(line) + "assertThat({}).isTrue();\n".format(actual)
     elif "assertFalse" in line and line.endswith(";") and ".assertFalse" not in line:
         parameter = substring_maker(line, "assertFalse(", ");")
         actual = parameter
         if actual.startswith(" "):
             actual = actual[1:]
-        new_line = "assertThat({}).isFalse();\n".format(actual)
+        new_line = " " * count_indentation(line) + "assertThat({}).isFalse();\n".format(actual)
     elif "assertNull" in line and line.endswith(";") and ".assertNull" not in line:
         parameter = substring_maker(line, "assertNull(", ");")
         actual = parameter
         if actual.startswith(" "):
             actual = actual[1:]
-        new_line = "assertThat({}).isNull();\n".format(actual)
+        new_line = " " * count_indentation(line) + "assertThat({}).isNull();\n".format(actual)
     elif "assertNotNull" in line and line.endswith(";") and ".assertNotNull" not in line:
         parameter = substring_maker(line, "assertNotNull(", ");")
         actual = parameter
         if actual.startswith(" "):
             actual = actual[1:]
-        new_line = "assertThat({}).isNotNull();\n".format(actual)
+        new_line = " " * count_indentation(line) + "assertThat({}).isNotNull();\n".format(actual)
     else:
         new_line = start_line
     sys.stdout.write(new_line)
